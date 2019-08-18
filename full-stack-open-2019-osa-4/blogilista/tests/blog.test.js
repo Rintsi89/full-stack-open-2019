@@ -82,12 +82,14 @@ describe('HTTP tests', () => {
     })
 
     test('POST /api/blogs adds one blog with valid content', async () => {
+
         const newBlog = {
             title: "Parasta kesässä – Joensuun Marttakahvio",
             author: "Jenni Häyrinen",
             url: "http://liemessa.fi/2019/08/marttakahvio-joensuu/",
             likes: 2
         }
+
         await api
             .post('/api/blogs')
             .send(newBlog)
@@ -103,11 +105,13 @@ describe('HTTP tests', () => {
         )
     })
     test('POST /api/blogs with no likes, return 0 likes', async () => {
+
         const newBlogNoLikes = {
             title: "Parasta kesässä – Joensuun Marttakahvio",
             author: "Jenni Häyrinen",
             url: "http://liemessa.fi/2019/08/marttakahvio-joensuu/",
         }
+
         await api
             .post('/api/blogs')
             .send(newBlogNoLikes)
@@ -116,18 +120,58 @@ describe('HTTP tests', () => {
 
         const blogsAtEnd = await helper.blogsInDb()
         expect(blogsAtEnd.length).toBe(helper.initialBlogs.length + 1)
+
         const addedBlog = blogsAtEnd.filter(blog => blog.title === newBlogNoLikes.title)
         expect(addedBlog[0].likes).toBe(0)
     })
 
     test('POST /api/blogs with no title or URL, returns 400', async () => {
+
         const newBlogNoTitleOrUrl = {
             author: "Jenni Häyrinen"
         }
+
         await api
             .post('/api/blogs')
             .send(newBlogNoTitleOrUrl)
             .expect(400)
+    })
+
+    test('PUT /api/blogs/:id updates blog if id is valid', async () => {
+
+        const blogsAtStart = await helper.blogsInDb()
+        const blogToUpdate = blogsAtStart[0]
+        const updatedBlog = {...blogToUpdate, likes: 14}
+
+        await api
+            .put(`/api/blogs/${blogToUpdate.id}`)
+            .send(updatedBlog)
+            .expect(200)
+
+        const blogsAtEnd = await helper.blogsInDb()
+        expect(blogsAtEnd.length).toBe(
+            helper.initialBlogs.length
+        )
+
+        expect(blogsAtEnd[0]).toEqual(updatedBlog)
+    })
+
+    test('DELETE /api/blogs/:id deletes blog if id is valid', async () => {
+
+        const blogsAtStart = await helper.blogsInDb()
+        const blogToDelete = blogsAtStart[0]
+
+        await api
+            .delete(`/api/blogs/${blogToDelete.id}`)
+            .expect(204)
+
+        const blogsAtEnd = await helper.blogsInDb()
+        expect(blogsAtEnd.length).toBe(
+            helper.initialBlogs.length - 1
+        )
+
+        const titles = blogsAtEnd.map(blog => blog.title)
+        expect(titles).not.toContain(blogToDelete.title)
     })
 })
 
