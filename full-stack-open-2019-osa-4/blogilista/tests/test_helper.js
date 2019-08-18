@@ -1,7 +1,7 @@
-const listHelper = require('../utils/list_helper')
 const _ = require('lodash')
+const Blog = require('../models/blog')
 
-const blogs = [
+const initialBlogs = [
     {
         _id: "5a422a851b54a676234d17f7",
         title: "React patterns",
@@ -63,59 +63,59 @@ const listWithOneBlog = [
     }
 ]
 
+const dummy = (blogs) => {
+    return 1
+}
 
-test('dummy returns one', () => {
-    const blogs = []
+const totalLikes = (blogs) => {
+    const reducer = (sum, item) => {
+        return sum + item
+    }
 
-    const result = listHelper.dummy(blogs)
-    expect(result).toBe(1)
-})
+    const mappedLikes = blogs.map(blog => blog.likes)
 
-describe('Total likes', () => {
-   
-    test('of empty array is zero', () => {
-        const result = listHelper.totalLikes([])
-        expect(result).toBe(0)
-    })
+    return mappedLikes.reduce(reducer, 0)
+}
 
-    test('when list has only one blog equals likes of that blog', () => {
-        const result = listHelper.totalLikes(listWithOneBlog)
-        expect(result).toBe(5)
-    })
+const favoriteBlog = (blogs) => {
+    const reducer = (prev, current) => {
+        return (prev.likes > current.likes) ? prev : current
+    }
 
-    test('of a bigger blog list is calculated right', () => {
-        const result = listHelper.totalLikes(blogs)
-        expect(result).toBe(36)
-    })
+    const mostPopularBlog = blogs.reduce(reducer)
+    return _.pick(mostPopularBlog, ["title", "author", "likes"])
+}
 
-})
+const mostBlogs = (blogs) => {
+    const mappedBlogs = _(blogs).groupBy("author").map((objs, key) => ({
+                "author": key,
+                "blogs": _.countBy(objs, "author")[key],
+            })).value();
 
-describe('Most popular blog', () => {
-
-    const mostPopularObject = _.pick(blogs[2], ["title", "author", "likes"])
+    return mostBlogsByAuthor = _(mappedBlogs).maxBy("blogs") 
+}
+const mostLikes = (blogs) => {
     
-    test(`is called ${JSON.stringify(blogs[2].title)}`, () => {
-        const result = listHelper.favoriteBlog(blogs)
-        expect(result).toEqual(mostPopularObject)
-    })
-})
+    const mappedBlogs = _(blogs).groupBy("author").map((objs, key) => ({
+                "author": key,
+                "likes": _.sumBy(objs, "likes"),
+            })).value();
 
-describe('Most blogs', () => {
+    return mostLikesByAuthor = _(mappedBlogs).maxBy("likes") 
+}
 
-    const mostBlogsByAuthor = { author: "Robert C. Martin", blogs: 3 }
-    
-    test(`are written by ${JSON.stringify(mostBlogsByAuthor.author)}`, () => {
-        const result = listHelper.mostBlogs(blogs)
-        expect(result).toEqual(mostBlogsByAuthor)
-    })
-})
+const blogsInDb = async () => {
+    const blogs = await Blog.find({})
+    return blogs.map(blog => blog.toJSON())
+}
 
-describe('Most likes', () => {
-
-    const mostLikesByAuthor = { author: 'Edsger W. Dijkstra', likes: 17 }
-    
-    test(`are received by the blogs of ${JSON.stringify(mostLikesByAuthor.author)}`, () => {
-        const result = listHelper.mostLikes(blogs)        
-        expect(result).toEqual(mostLikesByAuthor)
-    })
-})
+module.exports = {
+    dummy,
+    totalLikes,
+    favoriteBlog,
+    mostBlogs,
+    mostLikes,
+    initialBlogs,
+    listWithOneBlog,
+    blogsInDb
+}
