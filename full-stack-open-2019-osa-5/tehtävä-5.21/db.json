@@ -1,0 +1,59 @@
+{
+  "notes": [
+    {
+      "content": "custom-hooks are awesome!",
+      "id": 1
+    },
+    {
+      "content": "best feature ever <3",
+      "id": 2
+    },
+    {
+      "content": "Testing testing",
+      "id": 3
+    },
+    {
+      "content": "Testausnote",
+      "id": 4
+    },
+    {
+      "content": "Testausnote",
+      "id": 5
+    },
+    {
+      "content": "Viides muistiinpano",
+      "id": 6
+    },
+    {
+      "content": "Muistiinpano",
+      "id": 7
+    }
+  ],
+  "persons": [
+    {
+      "name": "mluukkai",
+      "number": "040-5483923",
+      "id": 1
+    },
+    {
+      "name": "Nimetö",
+      "number": "041 978 645 315",
+      "id": 2
+    },
+    {
+      "name": "Nimetö",
+      "number": "041 978 645 315",
+      "id": 3
+    },
+    {
+      "name": "asdsa",
+      "number": "asdasd",
+      "id": 4
+    },
+    {
+      "name": "Nimi",
+      "number": "123456789",
+      "id": 5
+    }
+  ]
+}
