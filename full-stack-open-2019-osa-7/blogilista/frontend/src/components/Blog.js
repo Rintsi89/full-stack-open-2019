@@ -30,12 +30,12 @@ const Blog = (props) => {
         <List.Item icon='book' content={blog.title} />
         <List.Item icon='linkify'content={<a href={blog.url}>{blog.url}</a>}/>
         <List.Item icon='user circle' content={blog.author} />
-        <Button as='div' labelPosition='right' onClick={() => addLike(blog)}>
+        <Button data-cy='blog-like-button' as='div' labelPosition='right' onClick={() => addLike(blog)}>
           <Button icon>
             <Icon name='heart' />
           Like
           </Button>
-          <Label as='a' basic pointing='left'>
+          <Label as='a' basic pointing='left' data-cy='blog-likes'>
             {blog.likes}
           </Label>
         </Button>

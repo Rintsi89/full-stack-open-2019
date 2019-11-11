@@ -49,7 +49,7 @@ const App = (props) => {
           <Router>
             <Menu inverted>
               <Menu.Item><Link to="/">Home</Link></Menu.Item>
-              <Menu.Item><Link to="/blogs">Blogs</Link></Menu.Item>
+              <Menu.Item data-cy='blog-link'><Link to="/blogs">Blogs</Link></Menu.Item>
               <Menu.Item><Link to="/users">Users</Link></Menu.Item>
             </Menu>
             <Route exact path="/" render={() => <Home />} />

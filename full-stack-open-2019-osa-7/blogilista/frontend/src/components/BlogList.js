@@ -26,16 +26,16 @@ const BlogList = (props) => {
         <Table.Header>
           <Table.Row>
             <Table.HeaderCell>Title</Table.HeaderCell>
-            <Table.HeaderCell>Author</Table.HeaderCell>
-            <Table.HeaderCell>Likes</Table.HeaderCell>
+            <Table.HeaderCell >Author</Table.HeaderCell>
+            <Table.HeaderCell >Likes</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
           {props.blogs.map(blog =>
             <Table.Row key={blog.id}>
-              <Table.Cell><Link to={`/blogs/${blog.id}`}>{blog.title}</Link></Table.Cell>
-              <Table.Cell>{blog.author}</Table.Cell>
-              <Table.Cell><Label ribbon>{blog.likes}</Label></Table.Cell>
+              <Table.Cell data-cy='new-blog-title'><Link to={`/blogs/${blog.id}`} data-cy='new-blog-link'>{blog.title}</Link></Table.Cell>
+              <Table.Cell data-cy='new-blog-author'>{blog.author}</Table.Cell>
+              <Table.Cell data-cy='new-blog-likes'><Label ribbon>{blog.likes}</Label></Table.Cell>
             </Table.Row>
           )}
         </Table.Body>

@@ -34,11 +34,11 @@ const LoginForm = (props) => {
 
   return (
     <div>
-      <Form onSubmit={handleLogin}>
+      <Form onSubmit={handleLogin} data-cy="log-in-form">
         <Form.Group style={flexForm}>
-          <h2 style={margin}>Log in to application</h2>
-          <Form.Field style={margin}> Username <input {...username.attributes} /></Form.Field>
-          <Form.Field style={margin}> Password <input {...password.attributes} /></Form.Field>
+          <h2 style={margin} data-cy="log-in">Log in to application</h2>
+          <Form.Field style={margin} data-cy="username"> Username <input {...username.attributes} /></Form.Field>
+          <Form.Field style={margin} data-cy="password"> Password <input {...password.attributes} /></Form.Field>
           <Form.Field style={margin} control={Button} content='Log In' />
         </Form.Group>
       </Form>

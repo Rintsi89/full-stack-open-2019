@@ -37,11 +37,11 @@ const BlogForm = (props) => {
   return (
     <div>
       <h2>Create new blog</h2>
-      <Form onSubmit={addBlog}>
+      <Form onSubmit={addBlog} data-cy='blog-form'>
         <Form.Group widths='equal'>
-          <Form.Field>Title: <input {...title.attributes} /> </Form.Field>
-          <Form.Field>Author: <input {...author.attributes} /></Form.Field>
-          <Form.Field>Url: <input {...url.attributes} /> </Form.Field>
+          <Form.Field data-cy='blog-title'>Title: <input {...title.attributes} /> </Form.Field>
+          <Form.Field data-cy='blog-author'>Author: <input {...author.attributes} /></Form.Field>
+          <Form.Field data-cy='blog-url'>Url: <input {...url.attributes} /> </Form.Field>
         </Form.Group>
         <Form.Field control={Button} content='Create' style={{ marginBottom: 10 }}/>
       </Form>

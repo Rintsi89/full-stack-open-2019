@@ -20,8 +20,8 @@ const Header = (props) => {
 
   return(
     <div style={flexContainer}>
-      <h2 style={{ margin: 10 }}>Magnificent Blogging Site </h2>
-      <em>{props.logged_user.name} is logged in <button className="ui negative mini button" onClick={() => handleLogOut()}>Log Out</button></em>
+      <h2 style={{ margin: 10 }} data-cy='header-title'>Magnificent Blogging Site </h2>
+      <em>{props.logged_user.name} is logged in <button data-cy='log-out-button' className="ui negative mini button" onClick={() => handleLogOut()}>Log Out</button></em>
     </div>
   )
 

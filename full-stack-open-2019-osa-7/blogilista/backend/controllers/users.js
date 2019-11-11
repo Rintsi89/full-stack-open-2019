@@ -10,12 +10,14 @@ usersRouter.get('/', async (request, response) => {
 })
 
 usersRouter.post('/', async (request, response, next) => {
+    
     try {
         const { username, password, name } = request.body
+        
 
         if (!password || password.length < 3) {
             return response.status(400).send({
-                error: 'pasword minimum length 3'
+                error: 'password minimum length 3'
             })
         }
 
@@ -29,7 +31,7 @@ usersRouter.post('/', async (request, response, next) => {
         })
 
         const savedUser = await user.save()
-
+        
         response.json(savedUser)
     } catch (exception) {
         next(exception)
